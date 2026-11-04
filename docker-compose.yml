@@ -1,0 +1,29 @@
+services:
+  grimseth-frontpage:
+    image: ghcr.io/grimsethtechnologies/grimseth-frontpage:latest
+    networks:
+      - traefik-public-4
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+      update_config:
+        order: start-first
+        failure_action: rollback
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public-4
+        - traefik.http.routers.grimseth-frontpage.rule=Host(`grimseth.no`) || Host(`www.grimseth.no`)
+        - traefik.http.routers.grimseth-frontpage.entrypoints=websecure
+        - traefik.http.routers.grimseth-frontpage.tls.certresolver=le
+        - traefik.http.routers.grimseth-frontpage.service=grimseth-frontpage
+        - traefik.http.routers.grimseth-frontpage-http.rule=Host(`grimseth.no`) || Host(`www.grimseth.no`)
+        - traefik.http.routers.grimseth-frontpage-http.entrypoints=web
+        - traefik.http.routers.grimseth-frontpage-http.middlewares=grimseth-frontpage-redirect
+        - traefik.http.routers.grimseth-frontpage-http.service=grimseth-frontpage
+        - traefik.http.middlewares.grimseth-frontpage-redirect.redirectscheme.scheme=https
+        - traefik.http.services.grimseth-frontpage.loadbalancer.server.port=80
+networks:
+  traefik-public-4:
+    external: true
+name: grimseth-frontpage
