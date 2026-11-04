@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   grimseth-frontpage:
-    image: ghcr.io/grimsethtechnologies/grimseth-frontpage@sha256:4023fd470067203cfb45365ce5287868829fd61330a4da09c4da5a67046fa630
+    image: ghcr.io/grimsethtechnologies/grimseth-frontpage@sha256:53280d67be6f15b150e94df0ed720764ba9bcd7a68a19cb7259a1bd7ec453d89
     networks:
       - traefik-public-4
     healthcheck:
