@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   grimseth-frontpage:
-    image: nginx:stable-alpine
+    image: nginx@sha256:0e52bd054126cdc040b1276c0af347aeb02a41b9cfe305d6094767ac30e97949
     configs:
       - source: frontpage_html
         target: /usr/share/nginx/html/index.html
