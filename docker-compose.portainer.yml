@@ -2,14 +2,7 @@ version: "3.8"
 
 services:
   grimseth-frontpage:
-    image: nginx@sha256:0e52bd054126cdc040b1276c0af347aeb02a41b9cfe305d6094767ac30e97949
-    configs:
-      - source: frontpage_html
-        target: /usr/share/nginx/html/index.html
-      - source: frontpage_favicon
-        target: /usr/share/nginx/html/favicon.svg
-      - source: frontpage_nginx
-        target: /etc/nginx/conf.d/default.conf
+    image: ghcr.io/grimsethtechnologies/grimseth-frontpage@sha256:4023fd470067203cfb45365ce5287868829fd61330a4da09c4da5a67046fa630
     networks:
       - traefik-public-4
     healthcheck:
@@ -35,17 +28,6 @@ services:
         - traefik.http.routers.grimseth-frontpage-http.service=grimseth-frontpage
         - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
         - traefik.http.services.grimseth-frontpage.loadbalancer.server.port=80
-
-configs:
-  frontpage_html:
-    external: true
-    name: grimseth-frontpage-index-v1
-  frontpage_favicon:
-    external: true
-    name: grimseth-frontpage-favicon-v1
-  frontpage_nginx:
-    external: true
-    name: grimseth-frontpage-nginx-v1
 
 networks:
   traefik-public-4:
